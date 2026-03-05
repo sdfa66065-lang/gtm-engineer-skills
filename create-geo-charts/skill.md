@@ -48,13 +48,95 @@ Generate the visualization using one of these approaches:
 - Minimum 3:1 contrast ratio for chart elements, 4.5:1 for text
 - Never use color alone to convey meaning — add patterns, labels, or icons
 
-#### Design System
-Apply consistent styling across all charts:
-- **Colors**: Use a 6-color palette with sufficient contrast. Define once, reuse everywhere.
-- **Font**: System font stack or the site's body font, 12-14px for labels, 16px for titles
-- **Legend**: Bottom-aligned, horizontal, with color + label pairs
-- **Citation footer**: Small text below chart: "Source: [Name], [Year]. Methodology: [brief]."
-- **Borders**: 1px light gray border around chart area for visual containment
+#### Design System — Consulting-Grade Visual Standards
+
+Follow the design principles used by McKinsey, BCG, Deloitte Insights, and Pew Research Center. These firms set the gold standard for credible data visualization.
+
+**Core principle: Restrained elegance. Every element earns its place or gets removed.**
+
+##### Color Palette — Maximum 3 Colors Per Chart
+
+Use one accent color for the key data point. Everything else is neutral gray. Color creates hierarchy, not decoration.
+
+```
+Primary accent:  #2563EB  (blue — key insight, #1 data point)
+Secondary data:  #64748B  (slate gray — supporting data)
+Tertiary data:   #CBD5E1  (light gray — background/context data)
+Negative/risk:   #DC2626  (red — only for negative values or warnings)
+Positive/growth: #059669  (green — only for positive change indicators)
+Background:      #FFFFFF  (white — never use colored chart backgrounds)
+Gridlines:       #F1F5F9  (near-invisible — or remove entirely)
+```
+
+Override this palette when the user has brand colors. The accent color should be the brand's primary color; all other bars/lines stay gray.
+
+##### Typography — One Family, Size Creates Hierarchy
+
+```
+Font:            system-ui, -apple-system, 'Segoe UI', sans-serif
+                 (or the site's body font — never mix font families)
+
+Action title:    18-20px, font-weight 700, color #0F172A
+Subtitle/lead:   14-15px, font-weight 400, color #475569
+Axis labels:     11-12px, font-weight 400, color #64748B
+Data labels:     12-13px, font-weight 600, color #0F172A (on/near bars)
+Source citation:  11px, font-weight 400, color #94A3B8
+```
+
+##### Layout — Open, Borderless, Generous Whitespace
+
+- **No borders or boxes** around charts. White space separates elements, not lines.
+- **No chart background fill** — charts sit directly on the page's white background.
+- **Padding**: 40-60px top/bottom, 20-40px sides within the SVG viewBox.
+- **Width**: Charts should be 640-800px wide max (optimal reading width).
+
+##### Gridlines — Remove Unless Essential
+
+- When data labels are placed directly on bars/points: **remove gridlines AND the value axis entirely**.
+- When data labels would clutter (>10 data points): use faint horizontal gridlines (#F1F5F9, 1px) and keep the value axis.
+- **Never use vertical gridlines** on bar charts.
+- Axis lines: 1px #E2E8F0 for the baseline only.
+
+##### Labels — Direct, Not Legend
+
+- **Place values directly on or beside each bar/point.** Eliminate the need for readers to look back and forth between legend and data.
+- **Legends only when unavoidable** (overlapping lines, many-category pie/donut). When used: bottom-aligned, horizontal, compact.
+- **Category labels directly on the axis** — left-aligned for horizontal bars, centered below for vertical bars.
+
+##### Action Titles — State the Insight, Not the Topic
+
+The chart title is a complete sentence stating what the reader should take away. This is the #1 pattern from McKinsey and BCG.
+
+```
+BAD:  "Revenue by Region"
+BAD:  "GEO Strategy Comparison"
+GOOD: "Authoritative Quotations Lift AI Visibility by 41%"
+GOOD: "Content Updated Within 3 Months Earns 54% More Citations"
+```
+
+##### Annotations — Sparse, Pointed
+
+- At most 1-2 callout annotations per chart, pointing to the key insight.
+- Use a thin line (1px #94A3B8) + small text label, not boxes or bubbles.
+- If a chart needs many annotations to make sense, simplify the chart instead.
+
+##### Source Citation — Always Present, Never Prominent
+
+Small text below the chart, separated by a thin rule or whitespace:
+```
+Source: [Organization], [Year]. N=[sample size]. [1-line methodology].
+```
+This is non-negotiable — it's what separates credible research charts from blog graphics.
+
+##### What NOT to Do
+
+- No 3D effects, gradients, shadows, or rounded bar caps
+- No decorative icons or illustrations inside the chart area
+- No bright multi-color palettes (rainbow charts destroy credibility)
+- No pie charts with >5 segments (use horizontal bar instead)
+- No radar/spider charts without a companion comparison table
+- No dark/colored backgrounds behind chart areas
+- No "Chart 1" or "Figure A" labels — always action titles
 
 ### Step 4: Write the Text Layer (Critical for GEO)
 
@@ -234,7 +316,10 @@ Before delivering any chart, verify:
 
 - [ ] Takeaway heading states the key finding with a specific number
 - [ ] Key finding summary is under 60 words and stands alone
-- [ ] Chart uses consistent design system (colors, fonts, legend, citation footer)
+- [ ] Chart uses max 3 colors (1 accent + grays), no borders, no background fill
+- [ ] Action title states the insight as a complete sentence
+- [ ] Direct data labels on bars/points — no legend needed
+- [ ] Gridlines removed (or near-invisible #F1F5F9 when necessary)
 - [ ] Source and methodology stated directly below the chart
 - [ ] "What this means" paragraph provides actionable interpretation
 - [ ] HTML data table with full semantic markup (`thead`, `th scope`, `caption`)
