@@ -66,12 +66,13 @@ Example format:
 ### Part 3: The Problem (200-300 words)
 - Name the pain point explicitly — don't assume the reader already knows
 - Include 2-3 cited statistics that quantify the problem's scope or cost
+- If the problem has quantitative data worth visualizing, use the **create-geo-charts** skill to generate a chart (e.g., "X% of companies fail at Y" as a bar chart). Embed inline with its text summary and data table.
 - Describe specific scenarios: the exact moment this problem hurts
 - Transition naturally: "That's where [solution] comes in" or similar
 
 ### Part 4: The Solution (300-400 words)
 - Lead with what the solution does, not what the company is
-- Comparison table: [Solution] vs. [Alternative/Status Quo] — 4-6 rows, concrete criteria
+- Comparison table: [Solution] vs. [Alternative/Status Quo] — 4-6 rows, concrete criteria. For high-value articles, use the **create-geo-charts** skill to render this as a visual comparison chart with the full GEO text layer (summary, data table, JSON-LD).
 - List 3-5 specific capabilities with 1-2 sentence explanations each
 - Frame every benefit around user outcomes, not product features
 
@@ -171,6 +172,7 @@ Example format:
 - **Length**: 1,500–2,000 words minimum; 2,500+ for competitive or high-intent keywords
 - **Paragraphs**: 2-3 sentences maximum for scannability
 - **Visual hierarchy**: bullet points, tables, or blockquotes every ~200 words
+- **Charts**: For data-heavy articles, include 1-2 charts using the **create-geo-charts** skill. Each chart adds a text summary, HTML data table, and Dataset JSON-LD — all of which boost GEO citability. Place charts in Part 3 (problem stats) or Part 4 (comparison).
 - **Citations**: minimum 5-8 external authoritative citations; every statistic linked inline
 - **Images**: 2 landscape images with keyword-relevant ALT text
 - **Freshness**: include year in title where relevant; note "Updated [Month Year]" if applicable

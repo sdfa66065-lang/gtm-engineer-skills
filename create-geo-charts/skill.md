@@ -273,6 +273,26 @@ For the chart image file itself:
 
 ---
 
+## Integration with Other Skills
+
+This skill is designed to work alongside the **write-seo-blog** and **geo-content-research** skills.
+
+### When called from write-seo-blog
+The blog writer may request charts for Part 3 (problem statistics) or Part 4 (solution comparison). When creating charts for a blog post:
+- Match the article's heading hierarchy — use `<h3>` for the chart's action title (not `<h2>`, which is reserved for article sections)
+- Keep the chart inline within the article flow — don't create a separate page
+- The key finding summary and "what this means" paragraph serve double duty as article body text — write them in the article's voice
+- Still include the HTML data table and JSON-LD — these boost the article's overall GEO score
+
+### When called from geo-content-research
+The GEO skill may request charts for Phase 4 Data & Evidence Pages. When creating charts for these pages:
+- Use `<h2>` for the chart's action title — these are standalone data pages
+- Include the full CSV download and Dataset schema
+- These pages are meant to be the primary citable source — make the data table comprehensive
+- Link back to the comparison hub and category guide pages
+
+---
+
 ## Complete Output Template
 
 For every chart, deliver all of these:

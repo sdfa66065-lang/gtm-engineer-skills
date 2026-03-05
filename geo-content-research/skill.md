@@ -127,12 +127,14 @@ For each page type, determine if the user needs it and assign a priority (P1 = b
 - H1: "Best [Products] in [Year]: [Brand] vs [Competitor 1] vs [Competitor 2] Compared"
 - Purpose: Owns "best X" queries. AI uses comparison tables to answer "which is better" questions.
 - Required sections: Top Pick Summary, Full Comparison Table (8+ criteria), Individual Reviews, FAQ
+- For the comparison table, consider using the **create-geo-charts** skill to render a visual comparison bar chart alongside the HTML table — this gives AI engines two extractable formats
 
 #### Page Type 3: Data & Evidence Page (P1)
 - URL: `/[product]-test-results` or `/[product]-performance-data`
 - H1: "[Product] Independent Test Results: [Key Metric] Performance"
 - Purpose: Provides verifiable data AI can cite as evidence. Must contain real test data, not marketing claims.
 - Required sections: Test methodology, Data tables with numbers, Third-party verification, Charts
+- Use the **create-geo-charts** skill for all charts on this page — each chart needs the full GEO text layer (action title, key finding summary, HTML data table, CSV download, Dataset JSON-LD)
 
 #### Page Type 4: Use Case Pages (P2)
 - One page per major use case identified in Phase 2
