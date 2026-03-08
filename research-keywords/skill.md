@@ -58,6 +58,14 @@ Tell the user what you found, then ask: "Ready to move to Phase 2 — keyword di
 
 Cast a wide net. Use web search to find keywords across 6 research methods. For each method, run multiple searches and collect results.
 
+### SERP Scripts (Optional Boost)
+If the user's project has the `research-keywords/scripts/` directory, offer to run the SERP scripts first for higher-volume data:
+
+1. **keyword-explorer.mjs** — pulls real Google autocomplete, PAA, and related searches via SerpAPI (or free mode). Run with the seed keywords from Phase 1.
+2. **serp-analyzer.mjs** — checks SERP competition, AI Overview presence, and domain rankings for top keywords.
+
+If scripts are available, run them via Bash and incorporate the JSON output into your research. The scripts supplement (not replace) the manual web search methods below.
+
 ### Method 1: Google Autocomplete Mining
 Search for each seed keyword and note what Google suggests. Run these patterns:
 - `[seed keyword]` — raw autocomplete

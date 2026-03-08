@@ -2,9 +2,9 @@
 
 A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that researches and delivers a prioritized keyword list for SEO and GEO — using web search and AI analysis instead of paid tools like Ahrefs or Semrush.
 
-**No Ahrefs. No Semrush. No API keys.**
+**No Ahrefs. No Semrush required.**
 
-Uses web search, website crawling, and LLM analysis to find, cluster, and prioritize keywords — including a GEO dimension that traditional tools don't offer.
+Uses web search, website crawling, and LLM analysis to find, cluster, and prioritize keywords — including a GEO dimension that traditional tools don't offer. Optionally supercharge research with SERP API scripts for real autocomplete, PAA, and SERP feature data.
 
 ---
 
@@ -84,6 +84,101 @@ The keyword deliverable feeds directly into:
 - **[write-seo-blog](../write-seo-blog/)** — write articles for top keyword clusters
 - **[geo-content-research](../geo-content-research/)** — build full AI-ready content for high-GEO keywords
 - **[create-geo-charts](../create-geo-charts/)** — create data visualizations for data-driven keywords
+
+---
+
+## SERP Scripts (Optional Power Tools)
+
+The `scripts/` directory contains Node.js tools that pull real Google data to supercharge keyword research. These are optional — the skill works without them using Claude's web search, but they provide higher-volume, more precise data.
+
+### `keyword-explorer.mjs` — Keyword Discovery
+
+Pulls real Google autocomplete suggestions, People Also Ask questions, related searches, and detects SERP features (AI Overviews, Featured Snippets).
+
+```bash
+# Free mode — no API key, autocomplete only
+node scripts/keyword-explorer.mjs --seeds "physical AI, DePAI" --free
+
+# Full mode with SerpAPI (free tier: 100 searches/month at serpapi.com)
+SERPAPI_KEY=xxx node scripts/keyword-explorer.mjs \
+  --seeds "physical AI, DePAI, decentralized robotics" \
+  --depth deep \
+  --out keywords.json
+
+# Quick scan for a single seed
+node scripts/keyword-explorer.mjs -s "machine economy" --free -d quick
+```
+
+**Options:**
+| Flag | Description | Default |
+|---|---|---|
+| `--seeds, -s` | Comma-separated seed keywords (required) | — |
+| `--free` | Free mode: Google suggestions, no API key | auto if no key |
+| `--depth, -d` | `quick` / `normal` / `deep` | `normal` |
+| `--out, -o` | Output JSON file path | auto-generated |
+| `--gl` | Country code | `us` |
+| `--hl` | Language code | `en` |
+
+**What it outputs:**
+- All discovered keywords with source tags (autocomplete, PAA, related_search)
+- People Also Ask questions with snippets and sources
+- SERP feature detection per query (AI Overview, Featured Snippet, etc.)
+- Queries where AI Overviews appear (= high GEO opportunity)
+
+### `serp-analyzer.mjs` — SERP Competition Analysis
+
+Takes a keyword list and checks who currently ranks, what SERP features appear, and where content gaps exist.
+
+```bash
+# Analyze keywords from explorer output
+SERPAPI_KEY=xxx node scripts/serp-analyzer.mjs \
+  --input keywords.json \
+  --top 20 \
+  --track "axisrobotics.ai,bittensor.com"
+
+# Analyze specific keywords
+SERPAPI_KEY=xxx node scripts/serp-analyzer.mjs \
+  --keywords "what is DePAI, physical AI companies, best AI robotics crypto" \
+  --track "axisrobotics.ai"
+```
+
+**Options:**
+| Flag | Description | Default |
+|---|---|---|
+| `--input, -i` | Path to keyword-explorer JSON output | — |
+| `--keywords, -k` | Comma-separated keywords to analyze | — |
+| `--top, -t` | How many keywords from input file | `10` |
+| `--track` | Comma-separated domains to track | — |
+| `--out, -o` | Output JSON file path | auto-generated |
+
+**What it outputs:**
+- Difficulty estimate per keyword (easy / medium / hard)
+- SERP features present (AI Overview, Featured Snippet, PAA, Knowledge Graph, etc.)
+- Which sources AI Overviews currently cite
+- Tracked domain presence/absence (find your content gaps)
+- Most frequent ranking domains (identify real competitors)
+- All PAA questions (content ideas)
+
+### Recommended Workflow
+
+```
+1. Run keyword-explorer with your seed keywords
+   → Get raw keyword list + PAA questions
+
+2. Feed output into serp-analyzer for top priority keywords
+   → Get competition data + SERP feature opportunities
+
+3. Run the /research-keywords skill with both outputs
+   → Get clustered, scored, actionable keyword plan
+```
+
+### Setup
+
+```bash
+# No dependencies needed — pure Node.js (v18+), zero npm install
+# Just need a SerpAPI key for full features (free at serpapi.com)
+export SERPAPI_KEY=your_key_here
+```
 
 ---
 
