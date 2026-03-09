@@ -111,13 +111,33 @@ Using web search, research the exact questions people ask. Search for PAA (Peopl
 
 For each bucket, use web search to find real queries. Search patterns:
 - `[category keyword]` — note PAA questions
-- `site:reddit.com [category] recommendation`
 - `[category] vs` — note comparison suggestions
 - `best [category] for` — note use-case variants
 - `how to choose [category]`
 - `is [category] worth it`
 - `[competitor name] vs` — note who gets compared
 - `[category] companies list`
+
+### Step 2A-2: Reddit Mining (Required)
+
+Reddit is where real users ask questions in their own words — not marketer language. AI engines (especially ChatGPT and Perplexity) heavily crawl Reddit. This step is not optional.
+
+Run these searches and read the actual threads:
+- `site:reddit.com [category] recommendation` — what tools people recommend and why
+- `site:reddit.com best [category] [current year]` — current favorites
+- `site:reddit.com [category] vs` — how users compare options
+- `site:reddit.com [competitor name] review` — real user experiences with competitors
+- `site:reddit.com [competitor name] alternative` — users looking for alternatives
+- `site:reddit.com [pain point the product solves]` — how users describe the problem
+
+**What to extract from Reddit:**
+- The exact words and phrases users type (these become GEO prompts)
+- Pain points users describe that the product solves
+- Which competitors get mentioned together (reveals natural comparison sets)
+- Complaints about competitors (reveals differentiation angles)
+- Questions that go unanswered (reveals content gaps = Easy Wins)
+
+**Identify the 3-5 most relevant subreddits** for the category (e.g., r/sales, r/startups, r/Entrepreneur, r/coldemail). These also feed into the Authority Infiltration Plan (Phase 6).
 
 **Aim for 60-100 raw prompts before deduplication.**
 

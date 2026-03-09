@@ -217,28 +217,9 @@ Group keywords into topic clusters. A good cluster has:
 - 1 **pillar keyword** (broadest term, highest volume)
 - 3-8 **supporting keywords** (related terms in the same topic area)
 
-Name each cluster with a descriptive label.
+Name each cluster with a descriptive label. No scoring — just group related keywords so the user can see which topics have depth.
 
-### Step 4D: Score Clusters
-Score each cluster on 3 dimensions (1-5 each):
-
-1. **Relevance** — How closely does this cluster align with the product's value proposition?
-   - 5 = directly about the product's core use case
-   - 1 = tangentially related to the industry
-
-2. **GEO Opportunity** — How likely is AI to generate answers for these queries and cite sources?
-   - 5 = AI Overviews appear, question-format queries, comparison/evaluation intent
-   - 3 = mixed — some AI presence
-   - 1 = navigational or brand queries with no AI answer
-
-3. **Business Value** — How close is the searcher to a purchase or conversion?
-   - 5 = transactional, "best X for Y", pricing, vs competitor
-   - 3 = commercial investigation, how-to with product relevance
-   - 1 = pure awareness, definition queries
-
-**Priority Score** = Relevance + GEO Opportunity + Business Value (max 15)
-
-### Step 4E: Identify Top Easy Wins
+### Step 4D: Identify Top Easy Wins
 Extract the best opportunities — keywords with the highest volume-to-difficulty ratio and strong relevance. These are the "do first" list.
 
 Present the clustered, scored list to the user. Ask: "Ready for the final deliverable?"
@@ -290,56 +271,40 @@ These are the **immediate targets** — low KD, decent volume, high relevance.
 
 ---
 
-## GEO Queries (Full Questions for AI Citation)
-
-These are the full-sentence queries people ask AI chatbots. Your content must directly answer these to earn citations in ChatGPT, Perplexity, and Gemini.
-
-| # | GEO Query | Target Keyword | Content Format |
-|---|-----------|----------------|---------------|
-| 1 | What is [concept]? | [keyword] | Definition/explainer page |
-| 2 | [Product A] vs [Product B] for [use case] | [keyword] | Comparison table |
-| 3 | How to [solve problem] | [keyword] | Step-by-step guide |
-| 4 | Best [category] for [audience] | [keyword] | Listicle with criteria |
-| 5 | Why is [problem] so hard in [industry] | [keyword] | Problem-aware blog post |
-| ... | ... | ... | ... |
-
----
-
 ## Blog Topics (Long-Tail — Map to Target Keywords)
 
 4+ word phrases. Don't optimize pages for these — write blog posts targeting them, with the short keyword as the page's SEO target.
 
-| Blog Title | Target Keyword |
-|-----------|----------------|
-| [Full article title idea] | [1-3 word keyword] |
-| ... | ... |
+| # | Blog Title | Target Keyword | Vol | KD |
+|---|-----------|----------------|-----|-----|
+| 1 | [Full article title idea] | [1-3 word keyword] | [vol] | [kd] |
+| ... | ... | ... | ... | ... |
 
 ---
 
-## Topic Clusters
+## Strategic Notes
 
-### Cluster 1: [Name] — Priority: [X]/15
-**Pillar Keyword**: [keyword] | **Volume**: [vol] | **KD**: [kd]
-**Relevance**: [X]/5 | **GEO Opportunity**: [X]/5 | **Business Value**: [X]/5
+Qualitative insights about the keyword landscape — things the data doesn't show but matter for strategy.
 
-| Keyword | Volume | KD | Role |
-|---------|--------|-----|------|
-| [pillar] | [vol] | [kd] | Pillar |
-| [supporting] | [vol] | [kd] | Supporting |
-| ... | ... | ... | ... |
+- **[Observation]** — [why it matters and what to do about it]
+- **[Observation]** — [why it matters and what to do about it]
+- **[Observation]** — [why it matters and what to do about it]
 
-**Content Recommendation**: [1-2 sentences]
+Examples of good strategic notes:
+- "AI networking" is polluted by enterprise infrastructure (Cisco, Arista) — always use modifiers
+- Cold email is a warzone (KD 38-69) — compete via blog content, not landing pages
+- Meeting prep is an uncontested niche — no strong AI-first content exists, own it now
+- High-CPC Easy Wins reveal buyer intent — buyer intent ($19), data enrichment ($18) searchers are ready to buy
 
 ---
 
-[repeat for all clusters, sorted by priority]
+## Killed Keywords
 
-## Competitor Keyword Gaps
+Keywords removed due to zero volume in Ahrefs/Semrush. Listed for transparency.
 
-| Keyword | Competitor | Their Content | Your Opportunity |
-|---------|-----------|---------------|-----------------|
-| [keyword] | [competitor] | [what they have] | [what you could do better] |
-| ... | ... | ... | ... |
+- [keyword 1], [keyword 2], [keyword 3], ...
+
+---
 
 ## Comma-Separated List (For Tools)
 
@@ -363,7 +328,7 @@ Tell the user:
 1. **Target keywords must be 1-3 words** — this is non-negotiable. Longer phrases go in Blog Topics or GEO Queries. Keywords like "teleoperation data collection for robots" are blog titles, not target keywords.
 2. **No fabricated data** — do not invent search volumes. Use paid tool data when available, qualitative signals when not. Never estimate or guess a number.
 3. **Kill dead keywords early** — if a keyword has no autocomplete presence, no PAA, no dedicated SERP results, and no volume in paid tools, remove it. A list of 50 real keywords beats 100 with half dead.
-4. **SEO and GEO are separate outputs** — SEO keywords (1-3 words) optimize pages for Google ranking. GEO queries (full questions) optimize content for AI citation. Both are delivered but clearly separated.
+4. **This skill is SEO-focused** — SEO keywords (1-3 words) optimize pages for Google ranking. For GEO prompt targeting (full questions for AI citation), use the **geo-content-research** skill separately.
 5. **Real language over marketer language** — prioritize the words actual users type, not industry jargon
 6. **Interactive** — do not skip phases. Get user confirmation before moving to the next phase
 7. **Output is actionable** — the deliverable should be directly usable for content planning without further analysis
