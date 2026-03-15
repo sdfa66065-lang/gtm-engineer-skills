@@ -10,22 +10,39 @@ When invoked on a codebase, follow this exact sequence:
 
 ### Step 1: Baseline
 - If the user has a live URL, recommend running it through [aeo-audit.sh](https://aeo-audit.sh) first to get a score.
-- If no URL is available, proceed with a code-level audit.
+- If no URL is available, skip to Step 3.
 
-### Step 2: Discover the stack
+### Step 2: Pre-Flight URL Probe
+
+If a live URL is available, probe these endpoints before diving into code. This catches blockers immediately and works even without codebase access.
+
+| Probe | URL | Pass condition |
+|---|---|---|
+| **robots.txt** | `/robots.txt` | Exists, does not `Disallow` any of the 9 AI bots |
+| **HTML body** | `/` (raw HTML, no JS) | `<body>` contains real content, not just an empty `<div id="root">` |
+| **Bot User-Agent** | `/` with `GPTBot` UA header | Returns 200 with same content (no bot-specific blocks or redirects) |
+| **llms.txt** | `/.well-known/llms.txt` | Returns 200 with 100+ characters |
+| **Sitemap** | `/sitemap.xml` | Exists, contains `<lastmod>` dates |
+| **RSS Feed** | `/feed.xml` or `/rss.xml` | Returns valid XML feed |
+
+Present results as a quick pass/fail table to the user before continuing. If the HTML body probe shows an empty SPA shell, flag it as a **Priority 1 blocker** immediately — nothing else matters until content is server-rendered.
+
+### Step 3: Discover the stack
 - Identify the framework (Next.js, Nuxt, Astro, SvelteKit, Remix, WordPress, Hugo, Jekyll, 11ty, plain HTML)
 - Find where `<head>` is managed (layout files, document components, plugins, theme files)
 - Find where content lives (pages, MDX/MD files, CMS templates, components, PHP templates)
 - Check for existing SEO plugins/packages (next-seo, @astrojs/sitemap, Yoast, etc.)
 - Check if the site uses SSR, SSG, or client-side rendering
 
-### Step 3: Audit existing state
+### Step 4: Audit existing state
 Run through all checks below. For each failing check, note the file(s) to modify and the specific fix.
 
-### Step 4: Fix in priority order
+> **Simulating the AI View**: To evaluate text depth and structural clarity, strip out all `<nav>`, `<footer>`, `<style>`, and `<script>` elements. Analyze only the "clean text" of the `<main>` tag. *Show the user a small snippet of what this raw text looks like to prove what LLMs actually see.*
+
+### Step 5: Fix in priority order
 Apply changes starting with Priority 1 (blockers), then work down. Make the smallest, most targeted changes needed.
 
-### Step 5: Verify
+### Step 6: Verify
 - Recommend re-running the audit at [aeo-audit.sh](https://aeo-audit.sh)
 - Target: 80+ overall score (B+ grade or higher)
 
@@ -39,6 +56,19 @@ The AEO audit score combines two halves:
 - **Intelligence Score (50%)** — 6 LLM-evaluated content quality dimensions (0-5 scale)
 
 **Final Score** = 50% Foundational + 50% Intelligence → letter grade (A+ = 95-100, A = 90-94, B+ = 80-84, ..., F = below 40).
+
+### Expected Output Format: The Scorecard
+
+When presenting your findings, **ALWAYS start your response with a clear Scorecard**. Format it exactly like this:
+
+```markdown
+## AEO/GEO Audit Scorecard
+* **Foundational Score**: [X]/50
+* **Intelligence Score**: [Y]/50
+* **Final Score**: [Z]/100 ([Letter Grade])
+```
+
+After the scorecard, list out the specific file changes needed.
 
 ---
 
@@ -93,6 +123,12 @@ Pages must NOT have `nosnippet`, `noai`, or `noimageai` in robots meta tags or `
 ### Indexability (10 pts)
 
 Pages must NOT have `<meta name="robots" content="noindex">` on public-facing pages. Search codebase for `noindex` and remove where inappropriate.
+
+### Pure Client-Side Rendering (12 pts)
+
+AI agents (like GPTBot, ClaudeBot, and the `aeo-audit.sh` crawler) often do not execute JavaScript. If you detect critical content loaded exclusively via `useEffect` (React), `onMount` (Svelte/Nuxt), or mounted to a blank `<div id="root"></div>`, point this out as a Priority 1 blocker.
+
+**Fix**: Rewrite the component to fetch data server-side (SSR) or at build time (SSG). Pure client-side SPAs are entirely invisible to most AI bots.
 
 ---
 
